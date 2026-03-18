@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sara ❤️</title>
+
+<style>
+body {
+  margin:0;
+  background:black;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+}
+
+h1 {
+  color:#ff4d88;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff4d88; }
+  to { text-shadow: 0 0 25px #ff4d88, 0 0 40px #ff1a75; }
+}
+
+#typingText {
+  font-size:1.4em;
+  margin:20px;
+  min-height:80px;
+}
+
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  margin:10px;
+  cursor:pointer;
+}
+
+.yes { background:#ff4d88; color:white; }
+.no { background:white; color:#ff4d88; position:absolute; }
+
+#photoGallery {
+  margin-top:40px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+}
+
+.photo {
+  width:150px;
+  border-radius:15px;
+  opacity:0;
+  transform:scale(0.8);
+  transition:0.5s;
+}
+
+.show {
+  opacity:1;
+  transform:scale(1);
+}
+
+.heart {
+ position:absolute;
+ color:red;
+ animation:float 6s linear infinite;
+}
+
+@keyframes float {
+ 0%{transform:translateY(100vh);opacity:1}
+ 100%{transform:translateY(-10vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Birthday, Sara ❤️</h1>
+
+<p id="typingText"></p>
+
+<button onclick="start()">Click Me 💌</button>
+
+<div id="choices" style="display:none;">
+<p>Do you wanna go back to the night we met? 💫</p>
+<button class="yes" onclick="yesClick()">Yes 💖</button>
+<button class="no" id="noBtn" onmouseover="moveNo()">No 🙄</button>
+</div>
+
+<p id="final"></p>
+
+<div id="photoGallery" style="display:none;">
+  <img src="img1.jpg" class="photo">
+  <img src="img2.jpg" class="photo">
+  <img src="img3.jpg" class="photo">
+  <img src="img4.jpg" class="photo">
+  <img src="img5.jpg" class="photo">
+</div>
+
+<script>
+const message = "Happy birthday... my favorite person 😌\nYou make everything better.\nSo tell me...\nCan we go back to the night we met?";
+let i = 0;
+
+function start(){
+  document.querySelector("button").style.display="none";
+  typeMessage();
+}
+
+function typeMessage(){
+  if(i < message.length){
+    document.getElementById("typingText").innerHTML += message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
+    i++;
+    setTimeout(typeMessage,40);
+  } else {
+    document.getElementById("choices").style.display="block";
+  }
+}
+
+function yesClick(){
+ document.getElementById("final").innerHTML="I knew it 😏❤️";
+ let gallery = document.getElementById("photoGallery");
+ gallery.style.display = "flex";
+
+ let photos = document.querySelectorAll(".photo");
+ photos.forEach((img, index) => {
+   setTimeout(() => {
+     img.classList.add("show");
+   }, index * 400);
+ });
+}
+
+function moveNo(){
+ let b=document.getElementById("noBtn");
+ b.style.top=Math.random()*window.innerHeight+"px";
+ b.style.left=Math.random()*window.innerWidth+"px";
+}
+
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),6000);
+},300);
+</script>
+
+</body>
+</html>
